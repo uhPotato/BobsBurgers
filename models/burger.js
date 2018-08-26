@@ -16,7 +16,11 @@ var burger = {
 		});
 	},
 	// updateOne for changing the burger status
-
+	updateOne: function(objColVals, condition, cb) {
+		orm.updateOne('burgers', objColVals, condition, function(res) {
+			cb(res);
+		});
+	}
 };
 
 // export burger back to the controller

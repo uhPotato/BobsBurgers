@@ -2,6 +2,7 @@
 var connection = require('../config/connection.js');
 
 // a function that will be used to build queries
+// not necessary but saw someone else using this seems like a good idea for scaling up code later on for numerous queries
 function printQuestionMarks(num) {
 	var arr = [];
 
@@ -39,13 +40,14 @@ var orm = {
 	// insertOne function for inserting one burger into table
 	insertOne: function(table, cols, vals, cb) {
 		var queryString = 'INSERT INTO ' + table;
-
+		//string builder for query
 		queryString += ' (';
-		queryString += cols.toString();
+		queryString += cols.toString();  
 		queryString += ') ';
 		queryString += 'VALUES (';
 		// queryString += vals[0] + ' , ' + vals[1];
-		queryString += printQuestionMarks(vals.length);
+		// pushes in question mark for query input sanitation for Values single "?"
+		queryString += printQuestionMarks(vals.length); 
 		queryString += ') ';
 
 		console.log(queryString);
@@ -58,7 +60,23 @@ var orm = {
 		});
 	},
 
+	// update one function for changing a burger status
+	updateOne: function(table, objColVals, condition, cb) {
+		var queryString = 'UPDATE ' + table;
 
+		queryString += ' SET ';
+		queryString += objToSql(objColVals);
+		queryString += ' WHERE ';
+		queryString += condition;
+
+		console.log(queryString);
+
+		connection.query(queryString, function(err, result) {
+			if (err) throw err;
+			// send the query result back to the callback function
+			cb(result);
+		});
+	}
 };
 
 // export the orm back to the model burger.js
