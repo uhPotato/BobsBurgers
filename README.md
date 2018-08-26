@@ -6,5 +6,8 @@ The app itself is fairly straightforward but the focus here was to practice data
 
 ***
 
-
+<p align="center">
+  <img src="/public/assets/img/JAWS_DB_Image.png" width="500" title="hover text">
+  <img src="/public/assets/img/burgerpage.png" width="500" alt="accessibility text">
+</p>
 
